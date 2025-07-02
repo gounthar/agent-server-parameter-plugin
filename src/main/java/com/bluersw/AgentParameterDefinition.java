@@ -28,7 +28,7 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
@@ -98,7 +98,7 @@ public class AgentParameterDefinition extends ParameterDefinition implements  Co
 	 */
 	@CheckForNull
 	@Override
-	public ParameterValue createValue(StaplerRequest staplerRequest, JSONObject jsonObject) {
+	public ParameterValue createValue(StaplerRequest2 staplerRequest, JSONObject jsonObject) {
 		Object value = jsonObject.get("value");
 		StringBuilder strValue = new StringBuilder();
 		if (value instanceof String) {
@@ -128,7 +128,7 @@ public class AgentParameterDefinition extends ParameterDefinition implements  Co
 	 */
 	@CheckForNull
 	@Override
-	public ParameterValue createValue(StaplerRequest staplerRequest) {
+	public ParameterValue createValue(StaplerRequest2 staplerRequest) {
 		String[] value = staplerRequest.getParameterValues(this.getName());
 		if (value == null || value.length == 0 || isBlank(value[0])) {
 			return this.getDefaultParameterValue();
@@ -245,7 +245,7 @@ public class AgentParameterDefinition extends ParameterDefinition implements  Co
 		/*
 		 * We need this for JENKINS-26143 -- reflective creation cannot handle setChoices(Object). See that method for context.
 		 */
-		public ParameterDefinition newInstance(@Nullable StaplerRequest req, @NonNull JSONObject formData) {
+		public ParameterDefinition newInstance(@Nullable StaplerRequest2 req, @NonNull JSONObject formData) {
 			String name = formData.getString("name");
 			String value = formData.getString("defaultValue");
 			return new AgentParameterDefinition(name, value);

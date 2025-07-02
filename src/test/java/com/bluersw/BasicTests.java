@@ -2,7 +2,7 @@ package com.bluersw;
 
 import hudson.model.ParameterValue;
 import org.junit.Test;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
 import static com.bluersw.Constants.DEFAULT_VALUE;
 import static com.bluersw.Constants.NAME;
@@ -14,7 +14,7 @@ public class BasicTests {
 	public void testCreateValue_StaplerRequest(){
 		AgentParameterDefinition instance = new AgentParameterDefinition(NAME, DEFAULT_VALUE);
 
-		StaplerRequest request = mock(StaplerRequest.class);
+		StaplerRequest2 request = mock(StaplerRequest2.class);
 		ParameterValue result = instance.createValue(request);
 
 		assertEquals(result, new AgentParameterValue(NAME, DEFAULT_VALUE));
